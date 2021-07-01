@@ -1,21 +1,32 @@
 import { VFC } from 'react';
+import { Container, Paper } from '@material-ui/core';
+import { createStyles, makeStyles } from '@material-ui/core/styles';
+import Header from './components/Header';
 
-const App: VFC = () => (
-  <div className="App">
-    <header className="App-header">
-      <p>
-        Edit <code>src/App.tsx</code> and save to reload.
-      </p>
-      <a
-        className="App-link"
-        href="https://reactjs.org"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        Learn React
-      </a>
-    </header>
-  </div>
+const useStyles = makeStyles(() =>
+  createStyles({
+    container: {
+      padding: 0,
+    },
+    paper: {
+      height: '100vh',
+      backgroundImage: 'url(line_background.jpg)',
+      backgroundSize: 'cover',
+    },
+  })
 );
+
+const App: VFC = () => {
+  const classes = useStyles();
+
+  return (
+    <Container maxWidth="xs" className={classes.container}>
+      <Paper className={classes.paper} elevation={2}>
+        <Header />
+        <div>hoge</div>
+      </Paper>
+    </Container>
+  );
+};
 
 export default App;
