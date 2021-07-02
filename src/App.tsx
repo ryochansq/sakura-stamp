@@ -10,6 +10,7 @@ const useStyles = makeStyles(() =>
     container: {
       flexGrow: 1,
       padding: 0,
+      userSelect: 'none',
     },
     paper: {
       height: '100vh',
