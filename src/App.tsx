@@ -2,16 +2,22 @@ import { VFC } from 'react';
 import { Container, Paper } from '@material-ui/core';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
 import Header from './components/Header';
+import Chat from './components/Chat';
+import Stamp from './components/Stamp';
 
 const useStyles = makeStyles(() =>
   createStyles({
     container: {
+      flexGrow: 1,
       padding: 0,
     },
     paper: {
       height: '100vh',
-      backgroundImage: 'url(line_background.jpg)',
-      backgroundSize: 'cover',
+      '@supports (-webkit-touch-callout: none)': {
+        height: '-webkit-fill-available',
+      },
+      display: 'flex',
+      flexDirection: 'column',
     },
   })
 );
@@ -23,7 +29,8 @@ const App: VFC = () => {
     <Container maxWidth="xs" className={classes.container}>
       <Paper className={classes.paper} elevation={2}>
         <Header />
-        <div>hoge</div>
+        <Chat />
+        <Stamp />
       </Paper>
     </Container>
   );
