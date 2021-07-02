@@ -54,6 +54,7 @@ const Stamp: VFC = () => {
   const classes = useStyles();
 
   const onClickStamp = (stamp: Stamps) => {
+    // eslint-disable-next-line
     console.info(stamp);
   };
 
