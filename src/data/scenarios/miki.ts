@@ -52,7 +52,7 @@ const scenarioMiki: Scenario = {
     {
       side: 'left',
       name: 'yagi',
-      text: 'ソース少なめ',
+      text: 'ソース少な目',
     },
     {
       side: 'left',
