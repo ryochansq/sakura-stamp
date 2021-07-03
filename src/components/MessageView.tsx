@@ -1,16 +1,39 @@
 import { VFC } from 'react';
-import { Grid, Typography } from '@material-ui/core';
+import { Avatar, Grid, Typography } from '@material-ui/core';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
 import { Message } from '../stores/talk';
 
 const useStyles = makeStyles(() =>
   createStyles({
     timeWrapper: {
-      marginBottom: 4,
+      marginLeft: 4,
     },
     time: {
       color: '#345',
       marginTop: -4,
+    },
+    leftRoot: {
+      display: 'flex',
+      padding: 4,
+    },
+    avatar: {
+      width: 32,
+      height: 32,
+    },
+    triangle: {
+      width: 0,
+      height: 0,
+      margin: '3px 0 0 -6px',
+      border: '8px solid transparent',
+      borderRight: '18px solid #edf1ee',
+      '-webkit-transform': 'rotate(35deg)',
+      transform: 'rotate(35deg)',
+    },
+    text: {
+      backgroundColor: '#edf1ee',
+      borderRadius: 12,
+      padding: 8,
+      margin: '4px 0 0 -9px',
     },
   })
 );
@@ -29,7 +52,7 @@ const TimeView: VFC<Props> = ({ message }: Props) => {
       justify="flex-end"
       alignItems="flex-end"
       className={classes.timeWrapper}
-      xs={2}
+      xs={1}
     >
       {message.side === 'right' && (
         <Typography variant="caption" className={classes.time}>
@@ -44,15 +67,22 @@ const TimeView: VFC<Props> = ({ message }: Props) => {
 };
 
 const MessageView: VFC<Props> = ({ message }: Props) => {
-  // const classes = useStyles();
+  const classes = useStyles();
 
   if (message.side === 'left')
     return (
-      <Grid container justify="center">
-        <Typography variant="body1">
-          {message.text} {message.id}
+      <div className={classes.leftRoot}>
+        <Avatar
+          alt={message.name}
+          src={`members/${message.name}.jpg`}
+          className={classes.avatar}
+        />
+        <div className={classes.triangle} />
+        <Typography variant="body1" className={classes.text}>
+          {message.text}
         </Typography>
-      </Grid>
+        <TimeView message={message} />
+      </div>
     );
 
   return (

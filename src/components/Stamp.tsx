@@ -8,7 +8,7 @@ import useStamp from '../hooks/useStamp';
 const useStyles = makeStyles(() =>
   createStyles({
     root: {
-      backgroundColor: 'white',
+      backgroundColor: '#edf1ee',
     },
     title: {
       backgroundColor: '#234',
