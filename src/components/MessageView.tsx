@@ -6,7 +6,7 @@ import { Message } from '../stores/talk';
 const useStyles = makeStyles(() =>
   createStyles({
     timeWrapper: {
-      marginLeft: 4,
+      margin: '0 4px',
       width: 40,
     },
     time: {
@@ -51,7 +51,7 @@ const TimeView: VFC<Props> = ({ message }: Props) => {
       container
       direction="column"
       justify="flex-end"
-      alignItems="flex-end"
+      alignItems={message.side === 'left' ? 'flex-start' : 'flex-end'}
       className={classes.timeWrapper}
     >
       {message.side === 'right' && (
