@@ -34,7 +34,7 @@ const scenarioMiki: Scenario = {
     {
       side: 'left',
       name: 'yagi',
-      text: '中等部2年、副会長の八木美樹です！',
+      text: '中等部２年、副会長の八木美樹です！',
     },
     { side: 'input', root: {} },
   ],
@@ -42,7 +42,7 @@ const scenarioMiki: Scenario = {
     {
       side: 'left',
       name: 'yagi',
-      text: '...もう一回いきますねー、',
+      text: '......もう１回いきますねー、',
     },
     {
       side: 'left',
