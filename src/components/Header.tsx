@@ -2,6 +2,7 @@ import { VFC } from 'react';
 import { AppBar, IconButton, Toolbar, Typography } from '@material-ui/core';
 import { ArrowBackIos, Menu, PhoneOutlined } from '@material-ui/icons';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
+import { useSelector } from '../stores';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -20,6 +21,7 @@ const useStyles = makeStyles((theme: Theme) =>
 
 const Header: VFC = () => {
   const classes = useStyles();
+  const title = useSelector((state) => state.talk.name);
 
   return (
     <AppBar position="static" className={classes.bar}>
@@ -28,7 +30,7 @@ const Header: VFC = () => {
           <ArrowBackIos />
         </IconButton>
         <Typography variant="body1" className={classes.title}>
-          八木美樹
+          {title}
         </Typography>
         <IconButton color="inherit">
           <PhoneOutlined />

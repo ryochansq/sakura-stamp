@@ -2,7 +2,8 @@ import { VFC } from 'react';
 import { Grid, Typography } from '@material-ui/core';
 import { ArrowDropDown } from '@material-ui/icons';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
-import { stamps, Stamps } from '../data/index';
+import { stamps } from '../data/index';
+import useStamp from '../hooks/useStamp';
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -52,11 +53,7 @@ const useStyles = makeStyles(() =>
 
 const Stamp: VFC = () => {
   const classes = useStyles();
-
-  const onClickStamp = (stamp: Stamps) => {
-    // eslint-disable-next-line
-    console.info(stamp);
-  };
+  const onClickStamp = useStamp();
 
   return (
     <div className={classes.root}>

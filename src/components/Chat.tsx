@@ -1,6 +1,8 @@
 import { VFC } from 'react';
 import { Grid, Typography } from '@material-ui/core';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
+import { useSelector } from '../stores';
+import MessageView from './MessageView';
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -22,16 +24,18 @@ const useStyles = makeStyles(() =>
 
 const Chat: VFC = () => {
   const classes = useStyles();
+  const messages = useSelector((state) => state.talk.messages);
 
   return (
     <div className={classes.root}>
-      <div>start</div>
       <Grid container justify="center">
         <Typography className={classes.today} variant="caption">
           今日
         </Typography>
       </Grid>
-      <div>end</div>
+      {messages.map((message) => (
+        <MessageView message={message} key={message.id} />
+      ))}
     </div>
   );
 };
