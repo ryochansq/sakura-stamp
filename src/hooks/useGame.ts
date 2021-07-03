@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { scenarios } from '../data';
 import { useDispatch, useSelector } from '../stores';
-import { talkSlice } from '../stores/talk';
+import { appendMessage, changeUnit, increment } from '../stores/talk';
 
 const useGame = (): void => {
   const dispatch = useDispatch();
@@ -14,8 +14,8 @@ const useGame = (): void => {
       await new Promise((res) => setTimeout(res, 2000));
       const message = scenarios[0][unit][index];
       if (message.side === 'input') return;
-      dispatch(talkSlice.actions.appendMessage(message));
-      dispatch(talkSlice.actions.increment());
+      dispatch(appendMessage(message));
+      dispatch(increment());
     };
     void effect();
   }, [dispatch, index, unit]);
@@ -29,7 +29,7 @@ const useGame = (): void => {
     // TODO: 割り込まれた場合の処理を書きたい
 
     const nextUnit = pointed.root[lastMessage.text] || pointed.root.other;
-    if (nextUnit) dispatch(talkSlice.actions.changeUnit(nextUnit));
+    if (nextUnit) dispatch(changeUnit(nextUnit));
   }, [dispatch, messages, unit, index]);
 };
 

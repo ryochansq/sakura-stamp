@@ -1,4 +1,5 @@
 /* eslint-disable no-param-reassign */
+import moment from 'moment';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 export type Message = {
@@ -48,8 +49,7 @@ export const talkSlice = createSlice({
     },
     appendMessage: (state, action: PayloadAction<Message>) => {
       action.payload.id = state.messages.length;
-      action.payload.time = '20:38';
-      // TODO: time追加処理
+      action.payload.time = moment().format('H:mm');
       state.messages.push(action.payload);
     },
     increment: (state) => {
@@ -62,4 +62,5 @@ export const talkSlice = createSlice({
   },
 });
 
-// export const { actions } = talkSlice;
+export const { reset, appendMessage, increment, changeUnit } =
+  talkSlice.actions;
