@@ -7,6 +7,7 @@ const useStyles = makeStyles(() =>
   createStyles({
     timeWrapper: {
       marginLeft: 4,
+      width: 40,
     },
     time: {
       color: '#345',
@@ -23,17 +24,17 @@ const useStyles = makeStyles(() =>
     triangle: {
       width: 0,
       height: 0,
-      margin: '3px 0 0 -6px',
-      border: '8px solid transparent',
+      margin: '4px 0 0 -6px',
+      border: '6px solid transparent',
       borderRight: '18px solid #edf1ee',
       '-webkit-transform': 'rotate(35deg)',
       transform: 'rotate(35deg)',
     },
     text: {
       backgroundColor: '#edf1ee',
-      borderRadius: 12,
-      padding: 8,
-      margin: '4px 0 0 -9px',
+      borderRadius: 14,
+      padding: '4px 12px',
+      margin: '6px 0 0 -8px',
     },
   })
 );
@@ -52,7 +53,6 @@ const TimeView: VFC<Props> = ({ message }: Props) => {
       justify="flex-end"
       alignItems="flex-end"
       className={classes.timeWrapper}
-      xs={1}
     >
       {message.side === 'right' && (
         <Typography variant="caption" className={classes.time}>
@@ -78,7 +78,7 @@ const MessageView: VFC<Props> = ({ message }: Props) => {
           className={classes.avatar}
         />
         <div className={classes.triangle} />
-        <Typography variant="body1" className={classes.text}>
+        <Typography variant="body2" className={classes.text}>
           {message.text}
         </Typography>
         <TimeView message={message} />

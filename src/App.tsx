@@ -4,6 +4,7 @@ import { createStyles, makeStyles } from '@material-ui/core/styles';
 import Header from './components/Header';
 import Chat from './components/Chat';
 import Stamp from './components/Stamp';
+import useGame from './hooks/useGame';
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -25,6 +26,7 @@ const useStyles = makeStyles(() =>
 
 const App: VFC = () => {
   const classes = useStyles();
+  useGame();
 
   return (
     <Container maxWidth="xs" className={classes.container}>

@@ -1,3 +1,5 @@
+import scenarioMiki from './scenarios/miki';
+
 export const stamps = [
   'tehe',
   'nasuo',
@@ -14,3 +16,5 @@ export const stamps = [
 ] as const;
 
 export type Stamps = typeof stamps[number];
+
+export const scenarios = [scenarioMiki];
