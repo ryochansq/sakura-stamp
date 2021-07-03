@@ -73,7 +73,7 @@ const Stamp: VFC = () => {
               <div className={classes.stampGrid}>
                 <div className={classes.imgWrapper}>
                   <img
-                    src={`stamps/${stamp}.jpg`}
+                    src={`stamps/${stamp}.png`}
                     alt={stamp}
                     className={classes.img}
                   />

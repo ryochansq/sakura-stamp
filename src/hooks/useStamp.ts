@@ -7,7 +7,7 @@ const useStamp = (): ((stamp: Stamps) => void) => {
   const onClickStamp = (stamp: Stamps) => {
     const message: Message = {
       side: 'right',
-      name: stamp,
+      name: '',
       isStamp: true,
       text: stamp,
     };

@@ -2,11 +2,11 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 export type Message = {
-  id?: number;
   side: 'left' | 'right';
   name: string;
   isStamp: boolean;
   text: string;
+  id?: number;
   time?: string;
 };
 
@@ -19,7 +19,7 @@ export interface TalkState {
 }
 
 const initialState: TalkState = {
-  name: 'さくら学院スタンプ',
+  name: '八木美樹',
   messages: [],
 };
 
@@ -32,6 +32,8 @@ export const talkSlice = createSlice({
     },
     appendMessage: (state, action: PayloadAction<Message>) => {
       action.payload.id = state.messages.length;
+      action.payload.time = '20:38';
+      // TODO: time追加処理
       state.messages.push(action.payload);
     },
   },

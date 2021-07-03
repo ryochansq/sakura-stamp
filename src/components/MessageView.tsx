@@ -5,11 +5,8 @@ import { Message } from '../stores/talk';
 
 const useStyles = makeStyles(() =>
   createStyles({
-    today: {
-      backgroundColor: 'white',
-      borderRadius: 16,
-      margin: '8px 0',
-      padding: '4px 12px',
+    grid: {
+      padding: 4,
     },
   })
 );
@@ -21,11 +18,18 @@ type Props = {
 const MessageView: VFC<Props> = ({ message }: Props) => {
   const classes = useStyles();
 
+  if (message.side === 'left')
+    return (
+      <Grid container justify="center">
+        <Typography variant="body1">
+          {message.text} {message.id}
+        </Typography>
+      </Grid>
+    );
+
   return (
-    <Grid container justify="center">
-      <Typography className={classes.today} variant="caption">
-        {message.text} {message.id}
-      </Typography>
+    <Grid item container justify="flex-end" xs={12} className={classes.grid}>
+      <img width="40%" src={`stamps/${message.text}.png`} alt={message.text} />
     </Grid>
   );
 };
