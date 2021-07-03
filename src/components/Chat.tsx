@@ -1,6 +1,7 @@
-import { VFC } from 'react';
+import { VFC, useEffect, useRef } from 'react';
 import { Grid, Typography } from '@material-ui/core';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
+import smoothscroll from 'smoothscroll-polyfill';
 import { useSelector } from '../stores';
 import MessageView from './MessageView';
 
@@ -22,12 +23,22 @@ const useStyles = makeStyles(() =>
   })
 );
 
+// eslint-disable-next-line @typescript-eslint/no-unsafe-member-access,@typescript-eslint/no-unsafe-call
+smoothscroll.polyfill();
+
 const Chat: VFC = () => {
   const classes = useStyles();
   const messages = useSelector((state) => state.talk.messages);
+  const ref = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const view = ref.current;
+    if (!view) return;
+    view.scrollTo({ top: view.scrollHeight, behavior: 'smooth' });
+  }, [messages]);
 
   return (
-    <div className={classes.root}>
+    <div className={classes.root} ref={ref}>
       <Grid container justify="center">
         <Typography className={classes.today} variant="caption">
           今日
