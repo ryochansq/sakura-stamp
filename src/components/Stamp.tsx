@@ -13,8 +13,7 @@ const useStyles = makeStyles(() =>
     title: {
       backgroundColor: '#234',
       color: 'white',
-      padding: 8,
-      fontWeight: 700,
+      padding: 4,
     },
     gridWrapper: {
       padding: '0 16px',
