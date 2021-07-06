@@ -19,7 +19,12 @@ export type Input = {
 };
 
 export type Scenario = {
-  [name: string]: Unit;
+  units: {
+    [name: string]: Unit;
+  };
+  interrupted: {
+    [name: string]: string;
+  };
 };
 
 export type Unit = (Message | Input)[];
@@ -29,7 +34,6 @@ export interface TalkState {
   messages: Message[];
   currentUnit: string;
   index: number;
-  loading: boolean;
 }
 
 const initialState: TalkState = {
@@ -37,7 +41,6 @@ const initialState: TalkState = {
   messages: [],
   currentUnit: 'start',
   index: 0,
-  loading: false,
 };
 
 export const talkSlice = createSlice({

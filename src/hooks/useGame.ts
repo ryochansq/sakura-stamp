@@ -1,36 +1,49 @@
-import { useEffect } from 'react';
-import { scenarios } from '../data';
+import { useEffect, useRef } from 'react';
+import { scenarios, Stamps } from '../data';
 import { useDispatch, useSelector } from '../stores';
-import { appendMessage, changeUnit, increment } from '../stores/talk';
+import { appendMessage, changeUnit, increment, Message } from '../stores/talk';
 
-const useGame = (): void => {
+const delay = 1800;
+
+const useGame = (): ((s: Stamps) => void) => {
   const dispatch = useDispatch();
   const unit = useSelector((state) => state.talk.currentUnit);
   const index = useSelector((state) => state.talk.index);
-  const messages = useSelector((state) => state.talk.messages);
+  const timeoutRef = useRef<NodeJS.Timeout>();
 
+  // 一定間隔で左側のメッセージを追加していくためのuseEffect
   useEffect(() => {
-    const effect = async () => {
-      await new Promise((res) => setTimeout(res, 2000));
-      const message = scenarios[0][unit][index];
-      if (message.side === 'input') return;
-      dispatch(appendMessage(message));
+    const nextMessage = scenarios[0].units[unit][index];
+    if (nextMessage.side === 'input') return;
+    timeoutRef.current = setTimeout(() => {
+      dispatch(appendMessage(nextMessage));
       dispatch(increment());
-    };
-    void effect();
+    }, delay);
   }, [dispatch, index, unit]);
 
-  useEffect(() => {
-    if (messages.length === 0) return;
-    const lastMessage = messages.slice(-1)[0];
-    if (lastMessage.side === 'left') return;
-    const pointed = scenarios[0][unit][index];
-    if (pointed.side !== 'input') return; // これは割り込みの場合。
-    // TODO: 割り込まれた場合の処理を書きたい
+  const onClickStamp = (stamp: Stamps) => {
+    const newMessage: Message = {
+      side: 'right',
+      name: '',
+      isStamp: true,
+      text: stamp,
+    };
+    dispatch(appendMessage(newMessage));
 
-    const nextUnit = pointed.root[lastMessage.text] || pointed.root.other;
-    if (nextUnit) dispatch(changeUnit(nextUnit));
-  }, [dispatch, messages, unit, index]);
+    const pointed = scenarios[0].units[unit][index];
+    if (pointed.side === 'input') {
+      const nextUnit = pointed.root[stamp] || pointed.root.other;
+      if (nextUnit) dispatch(changeUnit(nextUnit));
+    } else if (index > 0 && timeoutRef.current) {
+      const nextUnit =
+        scenarios[0].interrupted[unit] ?? scenarios[0].interrupted.other;
+      if (!nextUnit) return;
+      clearTimeout(timeoutRef.current);
+      dispatch(changeUnit(nextUnit));
+    }
+  };
+
+  return onClickStamp;
 };
 
 export default useGame;

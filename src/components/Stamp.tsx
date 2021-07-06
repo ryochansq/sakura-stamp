@@ -3,7 +3,7 @@ import { Grid, Typography } from '@material-ui/core';
 import { ArrowDropDown } from '@material-ui/icons';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
 import { stamps } from '../data/index';
-import useStamp from '../hooks/useStamp';
+import useGame from '../hooks/useGame';
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -52,7 +52,7 @@ const useStyles = makeStyles(() =>
 
 const Stamp: VFC = () => {
   const classes = useStyles();
-  const onClickStamp = useStamp();
+  const onClickStamp = useGame();
 
   return (
     <div className={classes.root}>
