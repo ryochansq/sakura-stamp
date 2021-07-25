@@ -33,8 +33,7 @@ const Chat: VFC = () => {
 
   useEffect(() => {
     const view = ref.current;
-    if (!view) return;
-    view.scrollTo({ top: view.scrollHeight, behavior: 'smooth' });
+    if (view) view.scrollTo({ top: view.scrollHeight, behavior: 'smooth' });
   }, [messages]);
 
   return (

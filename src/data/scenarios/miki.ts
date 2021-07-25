@@ -1,108 +1,115 @@
 import { Scenario } from '../../stores/talk';
 
 const scenarioMiki: Scenario = {
+  name: '八木美樹',
   units: {
-    start: [
-      {
-        side: 'left',
-        name: 'yagi',
-        text: '今日の昼',
-      },
-      {
-        side: 'left',
-        name: 'yagi',
-        text: 'ひじきを食べた',
-      },
-      {
-        side: 'left',
-        name: 'yagi',
-        text: '八木美樹です',
-      },
-      {
-        side: 'input',
-        root: {
-          shirangana: 'success',
-          other: 'retry',
+    start: {
+      states: [
+        {
+          side: 'left',
+          name: 'miki',
+          text: '今日の昼',
         },
-      },
-    ],
-    interrupted: [
-      {
-        side: 'left',
-        name: 'yagi',
-        text: '最後まで言わせてください笑',
-      },
-      {
-        side: 'left',
-        name: 'yagi',
-        text: '今日の昼',
-      },
-      {
-        side: 'left',
-        name: 'yagi',
-        text: 'ひじきを食べた',
-      },
-      {
-        side: 'left',
-        name: 'yagi',
-        text: '八木美樹です',
-      },
-      {
-        side: 'input',
-        root: {
-          shirangana: 'success',
-          other: 'retry',
+        {
+          side: 'left',
+          name: 'miki',
+          text: 'ひじきを食べた',
         },
-      },
-    ],
-    success: [
-      {
-        side: 'left',
-        name: 'yagi',
-        text: 'ありがとうございます！',
-      },
-      {
-        side: 'left',
-        name: 'yagi',
-        text: '中等部２年、副会長の八木美樹です！',
-      },
-      { side: 'input', root: {} },
-    ],
-    retry: [
-      {
-        side: 'left',
-        name: 'yagi',
-        text: '......もう１回いきますねー、',
-      },
-      {
-        side: 'left',
-        name: 'yagi',
-        text: 'たこ焼きは',
-      },
-      {
-        side: 'left',
-        name: 'yagi',
-        text: 'ソース少な目',
-      },
-      {
-        side: 'left',
-        name: 'yagi',
-        text: '八木美樹です',
-      },
-      {
-        side: 'input',
-        root: {
-          shirangana: 'success',
-          other: 'failure',
+        {
+          side: 'left',
+          name: 'miki',
+          text: '八木美樹です',
         },
-      },
-    ],
-    failure: [{ side: 'input', root: {} }],
-  },
-  interrupted: {
-    start: 'interrupted',
-    success: '',
-    other: 'failure',
+        {
+          side: 'input',
+          root: {
+            shirangana: 'success',
+            other: 'retry',
+          },
+        },
+      ],
+      interrupted: 'interrupted',
+    },
+    interrupted: {
+      states: [
+        {
+          side: 'left',
+          name: 'miki',
+          text: '最後まで言わせてください笑',
+        },
+        {
+          side: 'left',
+          name: 'miki',
+          text: '今日の昼',
+        },
+        {
+          side: 'left',
+          name: 'miki',
+          text: 'ひじきを食べた',
+        },
+        {
+          side: 'left',
+          name: 'miki',
+          text: '八木美樹です',
+        },
+        {
+          side: 'input',
+          root: {
+            shirangana: 'success',
+            other: 'retry',
+          },
+        },
+      ],
+      interrupted: 'interrupted',
+    },
+    retry: {
+      states: [
+        {
+          side: 'left',
+          name: 'miki',
+          text: '......もう１回いきますねー、',
+        },
+        {
+          side: 'left',
+          name: 'miki',
+          text: 'たこ焼きは',
+        },
+        {
+          side: 'left',
+          name: 'miki',
+          text: 'ソース少な目',
+        },
+        {
+          side: 'left',
+          name: 'miki',
+          text: '八木美樹です',
+        },
+        {
+          side: 'input',
+          root: {
+            shirangana: 'success',
+            other: 'failure',
+          },
+        },
+      ],
+      interrupted: 'failure',
+    },
+    success: {
+      states: [
+        {
+          side: 'left',
+          name: 'miki',
+          text: 'ありがとうございます！',
+        },
+        {
+          side: 'left',
+          name: 'miki',
+          text: '中等部２年、副会長の八木美樹です！',
+        },
+        { side: 'end' },
+      ],
+    },
+    failure: { states: [{ side: 'end' }] },
   },
 };
 

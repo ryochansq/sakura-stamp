@@ -18,37 +18,54 @@ export type Input = {
   };
 };
 
+export type End = {
+  side: 'end';
+};
+
 export type Scenario = {
+  name: string;
   units: {
     [name: string]: Unit;
   };
-  interrupted: {
-    [name: string]: string;
-  };
 };
 
-export type Unit = (Message | Input)[];
+export type Unit = {
+  states: (Message | Input | End)[];
+  interrupted?: string;
+};
 
 export interface TalkState {
   name: string;
   messages: Message[];
   currentUnit: string;
   index: number;
+  score: number;
 }
 
 const initialState: TalkState = {
-  name: '八木美樹',
+  name: '',
   messages: [],
   currentUnit: 'start',
   index: 0,
+  score: 0,
 };
 
 export const talkSlice = createSlice({
   name: 'talk',
   initialState,
   reducers: {
-    reset: (state) => {
-      state.messages = [];
+    initGame: (state) => {
+      state.name = initialState.name;
+      state.messages = initialState.messages;
+      state.currentUnit = initialState.currentUnit;
+      state.index = initialState.index;
+      state.score = initialState.score;
+    },
+    initScenario: (state, action: PayloadAction<string>) => {
+      state.name = action.payload;
+      state.messages = initialState.messages;
+      state.currentUnit = initialState.currentUnit;
+      state.index = initialState.index;
     },
     appendMessage: (state, action: PayloadAction<Message>) => {
       action.payload.id = state.messages.length;
@@ -59,11 +76,12 @@ export const talkSlice = createSlice({
       state.index += 1;
     },
     changeUnit: (state, action: PayloadAction<string>) => {
+      if (action.payload === 'success') state.score += 1;
       state.currentUnit = action.payload;
       state.index = 0;
     },
   },
 });
 
-export const { reset, appendMessage, increment, changeUnit } =
+export const { initGame, initScenario, appendMessage, increment, changeUnit } =
   talkSlice.actions;

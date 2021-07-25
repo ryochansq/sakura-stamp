@@ -1,3 +1,4 @@
+import scenarioAttendance from './scenarios/attendance';
 import scenarioMiki from './scenarios/miki';
 
 export const stamps = [
@@ -17,4 +18,4 @@ export const stamps = [
 
 export type Stamps = typeof stamps[number];
 
-export const scenarios = [scenarioMiki];
+export const scenarios = [scenarioMiki, scenarioAttendance];

@@ -34,7 +34,7 @@ const useStyles = makeStyles(() =>
       backgroundColor: '#edf1ee',
       borderRadius: 14,
       padding: '4px 12px',
-      margin: '6px 0 0 -8px',
+      margin: '6px 0 0 -10px',
     },
   })
 );
