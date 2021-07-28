@@ -1,6 +1,7 @@
 /* eslint-disable no-param-reassign */
 import moment from 'moment';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { Stamps } from '../data';
 
 export type Message = {
   side: 'left' | 'right';
@@ -14,8 +15,9 @@ export type Message = {
 export type Input = {
   side: 'input';
   root: {
-    [stamp: string]: string;
+    [key in Stamps]?: string;
   };
+  defaultRoot: string;
 };
 
 export type End = {
@@ -37,17 +39,11 @@ export type Unit = {
 export interface TalkState {
   name: string;
   messages: Message[];
-  currentUnit: string;
-  index: number;
-  score: number;
 }
 
 const initialState: TalkState = {
   name: '',
   messages: [],
-  currentUnit: 'start',
-  index: 0,
-  score: 0,
 };
 
 export const talkSlice = createSlice({
@@ -57,31 +53,17 @@ export const talkSlice = createSlice({
     initGame: (state) => {
       state.name = initialState.name;
       state.messages = initialState.messages;
-      state.currentUnit = initialState.currentUnit;
-      state.index = initialState.index;
-      state.score = initialState.score;
     },
     initScenario: (state, action: PayloadAction<string>) => {
       state.name = action.payload;
       state.messages = initialState.messages;
-      state.currentUnit = initialState.currentUnit;
-      state.index = initialState.index;
     },
     appendMessage: (state, action: PayloadAction<Message>) => {
       action.payload.id = state.messages.length;
       action.payload.time = moment().format('H:mm');
       state.messages.push(action.payload);
     },
-    increment: (state) => {
-      state.index += 1;
-    },
-    changeUnit: (state, action: PayloadAction<string>) => {
-      if (action.payload === 'success') state.score += 1;
-      state.currentUnit = action.payload;
-      state.index = 0;
-    },
   },
 });
 
-export const { initGame, initScenario, appendMessage, increment, changeUnit } =
-  talkSlice.actions;
+export const { initGame, initScenario, appendMessage } = talkSlice.actions;

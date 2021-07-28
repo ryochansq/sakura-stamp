@@ -24,8 +24,8 @@ const scenarioMiki: Scenario = {
           side: 'input',
           root: {
             shirangana: 'success',
-            other: 'retry',
           },
+          defaultRoot: 'retry',
         },
       ],
       interrupted: 'interrupted',
@@ -56,11 +56,11 @@ const scenarioMiki: Scenario = {
           side: 'input',
           root: {
             shirangana: 'success',
-            other: 'retry',
           },
+          defaultRoot: 'retry',
         },
       ],
-      interrupted: 'interrupted',
+      interrupted: 'failure',
     },
     retry: {
       states: [
@@ -88,8 +88,8 @@ const scenarioMiki: Scenario = {
           side: 'input',
           root: {
             shirangana: 'success',
-            other: 'failure',
           },
+          defaultRoot: 'failure',
         },
       ],
       interrupted: 'failure',

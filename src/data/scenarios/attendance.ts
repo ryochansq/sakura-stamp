@@ -13,22 +13,16 @@ const scenarioAttendance: Scenario = {
         {
           side: 'left',
           name: 'hayashi',
-          text: '中等部３年、',
-        },
-        {
-          side: 'left',
-          name: 'hayashi',
-          text: '白鳥沙南！',
+          text: '中等部３年、白鳥沙南！',
         },
         {
           side: 'input',
           root: {
             tehe: 'kokona',
-            other: 'failure',
           },
+          defaultRoot: 'failure',
         },
       ],
-      interrupted: 'failure',
     },
     kokona: {
       states: [
@@ -40,12 +34,107 @@ const scenarioAttendance: Scenario = {
         {
           side: 'input',
           root: {
-            nasuo: 'success',
-            other: 'failure',
+            nasuo: 'neo',
           },
+          defaultRoot: 'failure',
         },
       ],
-      interrupted: 'failure',
+    },
+    neo: {
+      states: [
+        {
+          side: 'left',
+          name: 'hayashi',
+          text: '中等部２年、佐藤愛桜！',
+        },
+        {
+          side: 'input',
+          root: {
+            sonnakoto: 'miku',
+          },
+          defaultRoot: 'failure',
+        },
+      ],
+    },
+    miku: {
+      states: [
+        {
+          side: 'left',
+          name: 'hayashi',
+          text: '田中美空！',
+        },
+        {
+          side: 'input',
+          root: {
+            dame: 'miko',
+          },
+          defaultRoot: 'failure',
+        },
+      ],
+    },
+    miko: {
+      states: [
+        {
+          side: 'left',
+          name: 'hayashi',
+          text: '戸高美湖！',
+        },
+        {
+          side: 'input',
+          root: {
+            gungun: 'miki',
+          },
+          defaultRoot: 'failure',
+        },
+      ],
+    },
+    miki: {
+      states: [
+        {
+          side: 'left',
+          name: 'hayashi',
+          text: '八木美樹！',
+        },
+        {
+          side: 'input',
+          root: {
+            shirangana: 'yume',
+          },
+          defaultRoot: 'failure',
+        },
+      ],
+    },
+    yume: {
+      states: [
+        {
+          side: 'left',
+          name: 'hayashi',
+          text: '中等部１年、野崎結愛！',
+        },
+        {
+          side: 'input',
+          root: {
+            otome: 'sakia',
+          },
+          defaultRoot: 'failure',
+        },
+      ],
+    },
+    sakia: {
+      states: [
+        {
+          side: 'left',
+          name: 'hayashi',
+          text: '小等部６年、木村咲愛！',
+        },
+        {
+          side: 'input',
+          root: {
+            mukako: 'success',
+          },
+          defaultRoot: 'failure',
+        },
+      ],
     },
     success: { states: [{ side: 'end' }] },
     failure: { states: [{ side: 'end' }] },
