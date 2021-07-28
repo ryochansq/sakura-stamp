@@ -3,24 +3,17 @@ import { scenarios, Stamps } from '../data';
 import { useDispatch } from '../stores';
 import { initScenario, appendMessage, Message } from '../stores/talk';
 
-type ScenarioPos = {
-  scenarioIndex: number;
-  unitKey: string;
-  stateIndex: number;
-};
-
-const initialPos: ScenarioPos = {
+const initialPos = {
   scenarioIndex: 0,
   unitKey: 'start',
   stateIndex: 0,
 };
-
 const INTERVAL = 1800;
 const SUCCESS_UNIT_KEY = 'success';
 
 const useGame = (): ((_: Stamps) => void) => {
   const dispatch = useDispatch();
-  const [score, setScore] = useState(0);
+  const [, setScore] = useState(0);
   const [pos, setPos] = useState(initialPos);
   const scenario = scenarios[pos.scenarioIndex];
   const unit = scenario.units[pos.unitKey];
@@ -30,13 +23,6 @@ const useGame = (): ((_: Stamps) => void) => {
   useEffect(() => {
     dispatch(initScenario(scenarios[0].name));
   }, [dispatch]);
-
-  // ゲーム終了処理？
-  useEffect(() => {
-    // eslint-disable-next-line no-console
-    if (pos.scenarioIndex + 1 === scenarios.length) console.info(score);
-    // TODO: なにか終了処理が必要であれば追記
-  }, [pos.scenarioIndex, score]);
 
   // 一定間隔で左側のメッセージを追加していくためのuseEffect
   useEffect(() => {
@@ -58,7 +44,7 @@ const useGame = (): ((_: Stamps) => void) => {
             setPos((prev) => ({ ...prev, stateIndex: prev.stateIndex + 1 }));
           };
     timeoutRef.current = setTimeout(callback, INTERVAL);
-  }, [dispatch, pos.stateIndex, unit, scenario, pos.scenarioIndex]);
+  }, [dispatch, pos, unit, scenario]);
 
   const changeUnit = (nextUnitKey: string) => {
     if (nextUnitKey === SUCCESS_UNIT_KEY) setScore((prev) => prev + 1);
