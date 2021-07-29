@@ -39,11 +39,13 @@ export type Unit = {
 export interface TalkState {
   name: string;
   messages: Message[];
+  score: number;
 }
 
 const initialState: TalkState = {
   name: '',
   messages: [],
+  score: 0,
 };
 
 export const talkSlice = createSlice({
@@ -63,7 +65,11 @@ export const talkSlice = createSlice({
       action.payload.time = moment().format('H:mm');
       state.messages.push(action.payload);
     },
+    addScore: (state) => {
+      state.score += 1;
+    },
   },
 });
 
-export const { initGame, initScenario, appendMessage } = talkSlice.actions;
+export const { initGame, initScenario, appendMessage, addScore } =
+  talkSlice.actions;

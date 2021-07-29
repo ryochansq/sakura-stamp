@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { scenarios, Stamps } from '../data';
 import { useDispatch } from '../stores';
-import { initScenario, appendMessage, Message } from '../stores/talk';
+import { initScenario, appendMessage, addScore, Message } from '../stores/talk';
 
 const initialPos = {
   scenarioIndex: 0,
@@ -13,7 +13,6 @@ const SUCCESS_UNIT_KEY = 'success';
 
 const useGame = (): ((_: Stamps) => void) => {
   const dispatch = useDispatch();
-  const [, setScore] = useState(0);
   const [pos, setPos] = useState(initialPos);
   const scenario = scenarios[pos.scenarioIndex];
   const unit = scenario.units[pos.unitKey];
@@ -32,7 +31,7 @@ const useGame = (): ((_: Stamps) => void) => {
       nextMessage.side === 'end'
         ? () => {
             if (pos.scenarioIndex + 1 === scenarios.length) return;
-            dispatch(initScenario(scenario.name));
+            dispatch(initScenario(scenarios[pos.scenarioIndex + 1].name));
             setPos((prev) => ({
               scenarioIndex: prev.scenarioIndex + 1,
               unitKey: initialPos.unitKey,
@@ -47,7 +46,7 @@ const useGame = (): ((_: Stamps) => void) => {
   }, [dispatch, pos, unit, scenario]);
 
   const changeUnit = (nextUnitKey: string) => {
-    if (nextUnitKey === SUCCESS_UNIT_KEY) setScore((prev) => prev + 1);
+    if (nextUnitKey === SUCCESS_UNIT_KEY) dispatch(addScore());
     setPos((prev) => ({ ...prev, unitKey: nextUnitKey, stateIndex: 0 }));
   };
 
