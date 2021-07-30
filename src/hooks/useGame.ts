@@ -1,14 +1,19 @@
 import { useState, useEffect, useRef } from 'react';
-import { scenarios, Stamps } from '../data';
+import { scenarios, Stamps, INTERVAL, END_INTERVAL } from '../data';
 import { useDispatch } from '../stores';
-import { initScenario, appendMessage, addScore, Message } from '../stores/talk';
+import {
+  initScenario,
+  appendMessage,
+  addScore,
+  setChangingTrue,
+  Message,
+} from '../stores/talk';
 
 const initialPos = {
   scenarioIndex: 0,
   unitKey: 'start',
   stateIndex: 0,
 };
-const INTERVAL = 1800;
 const SUCCESS_UNIT_KEY = 'success';
 
 const useGame = (): ((_: Stamps) => void) => {
@@ -27,22 +32,23 @@ const useGame = (): ((_: Stamps) => void) => {
   useEffect(() => {
     const nextMessage = unit.states[pos.stateIndex];
     if (nextMessage.side === 'input') return;
-    const callback =
-      nextMessage.side === 'end'
-        ? () => {
-            if (pos.scenarioIndex + 1 === scenarios.length) return;
-            dispatch(initScenario(scenarios[pos.scenarioIndex + 1].name));
-            setPos((prev) => ({
-              scenarioIndex: prev.scenarioIndex + 1,
-              unitKey: initialPos.unitKey,
-              stateIndex: 0,
-            }));
-          }
-        : () => {
-            dispatch(appendMessage(nextMessage));
-            setPos((prev) => ({ ...prev, stateIndex: prev.stateIndex + 1 }));
-          };
-    timeoutRef.current = setTimeout(callback, INTERVAL);
+    if (nextMessage.side === 'end') {
+      if (pos.scenarioIndex + 1 === scenarios.length) return;
+      dispatch(setChangingTrue());
+      timeoutRef.current = setTimeout(() => {
+        dispatch(initScenario(scenarios[pos.scenarioIndex + 1].name));
+        setPos((prev) => ({
+          scenarioIndex: prev.scenarioIndex + 1,
+          unitKey: initialPos.unitKey,
+          stateIndex: 0,
+        }));
+      }, END_INTERVAL);
+      return;
+    }
+    timeoutRef.current = setTimeout(() => {
+      dispatch(appendMessage(nextMessage));
+      setPos((prev) => ({ ...prev, stateIndex: prev.stateIndex + 1 }));
+    }, INTERVAL);
   }, [dispatch, pos, unit, scenario]);
 
   const changeUnit = (nextUnitKey: string) => {

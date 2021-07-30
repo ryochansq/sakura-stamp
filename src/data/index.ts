@@ -20,3 +20,10 @@ export const stamps = [
 export type Stamps = typeof stamps[number];
 
 export const scenarios = [scenarioMiki, scenarioAttendance, scenarioResult];
+
+export const INTERVAL = 1900;
+export const END_INTERVAL = 5000;
+
+export const ENTER_TIMEOUT = 2900;
+export const ENTER_DELAY = 2000;
+export const EXIT_TIMEOUT = 800;

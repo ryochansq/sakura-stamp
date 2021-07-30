@@ -40,12 +40,14 @@ export interface TalkState {
   name: string;
   messages: Message[];
   score: number;
+  changing: boolean;
 }
 
 const initialState: TalkState = {
   name: '',
   messages: [],
   score: 0,
+  changing: true,
 };
 
 export const talkSlice = createSlice({
@@ -55,10 +57,12 @@ export const talkSlice = createSlice({
     initGame: (state) => {
       state.name = initialState.name;
       state.messages = initialState.messages;
+      state.changing = false;
     },
     initScenario: (state, action: PayloadAction<string>) => {
       state.name = action.payload;
       state.messages = initialState.messages;
+      state.changing = false;
     },
     appendMessage: (state, action: PayloadAction<Message>) => {
       action.payload.id = state.messages.length;
@@ -68,8 +72,16 @@ export const talkSlice = createSlice({
     addScore: (state) => {
       state.score += 1;
     },
+    setChangingTrue: (state) => {
+      state.changing = true;
+    },
   },
 });
 
-export const { initGame, initScenario, appendMessage, addScore } =
-  talkSlice.actions;
+export const {
+  initGame,
+  initScenario,
+  appendMessage,
+  addScore,
+  setChangingTrue,
+} = talkSlice.actions;

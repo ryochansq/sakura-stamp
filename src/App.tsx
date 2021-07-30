@@ -4,6 +4,7 @@ import { createStyles, makeStyles } from '@material-ui/core/styles';
 import Header from './components/Header';
 import Chat from './components/Chat';
 import Stamp from './components/Stamp';
+import Cover from './components/Cover';
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -27,13 +28,16 @@ const App: VFC = () => {
   const classes = useStyles();
 
   return (
-    <Container maxWidth="xs" className={classes.container}>
-      <Paper className={classes.paper} elevation={2}>
-        <Header />
-        <Chat />
-        <Stamp />
-      </Paper>
-    </Container>
+    <>
+      <Container maxWidth="xs" className={classes.container}>
+        <Paper className={classes.paper} elevation={2}>
+          <Header />
+          <Chat />
+          <Stamp />
+        </Paper>
+      </Container>
+      <Cover />
+    </>
   );
 };
 
